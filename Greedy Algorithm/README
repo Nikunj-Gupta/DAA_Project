@@ -1,0 +1,97 @@
+*** Date : 24th April 2016 ***
+*** @Author : Anup Deshmukh, Amrutha Nanduri, Nikunj Gupta ***
+
+PROBLEM NAME :  
+	 	12.BACKUP
+
+COMPILATION  : 	
+		Move into the folder "IMT2014-013-036-037" and then into folder "version2".
+		1) Use the command 'make all' generate output.
+		2) Use command 'make test2000' to run test case with n = 2000.
+		   Use command 'make test3000' to run test case with n = 3000.
+		   Use command 'make test5000' to run test case with n = 5000.
+		   Use command 'make test10000' to run test case with n = 10000.
+		   Use command 'make test30000' to run test case with n = 30000.
+		   Use command 'make test50000' to run test case with n = 50000.
+
+TIME COMPLEXITY : 
+		
+		O(n + klog(n)) for each test case, where n is number of nodes and k is number of cables.
+		n = 2000  , k = 878 -->     0m0.022s
+		n = 5000  , k = 2234 -->    0m0.028s
+		n = 10000 , k = 4995 -->    0m0.060s
+		n = 30000 , k = 14324 -->   0m0.174s
+		n = 50000 , k = 24000 -->   0m0.316s		  
+		
+
+Sources : 	
+		http://www.iarcs.org.in/inoi/online-study-material/problems/backup.php
+		
+Data Structures used :  
+		Implentation of heaps using Associative container - Maps and Sets.
+		
+
+Notable defects  :  
+		NONE found. Works for all the test cases within the given constraints. 
+		    
+Individual contribution  :
+		Anup --> Version 1 (algorithm), Version 2(greedy approach), documentation.
+	        Amrutha --> Version 1 (algorithm), Version 2(greedy approach), script for test cases.
+		Nikunj --> Version 1 (algorithm), Version 2(greedy approach), implementing maps, pseudo code.  
+
+Psuedocode : 
+	/* Global variables */
+
+	//4 arrays 
+	int arr[]; // input array
+	int a[]; // difference array
+	int left[]; // to maintain office numbers to the left of an office
+	int right[]; // to maintain office numbers to the right of an office
+
+	// Set
+	 set minHeap; // For implementing min heaps to store the difference of distances between offices
+	 
+	 // Map
+	 map m; // To store all the edges (differences between the distances of offices from first office)
+	 
+	 // Total
+	 long long total; //Total Cost
+	 
+	 int main()
+	 {
+	 	Take Input arr[] // n = numbner of offices and k = number of cables
+	 	Find Difference Array a[]
+	 	Store in 'set' minHeap and 'map' edges
+	 	Store values in right and left arrays
+	 	
+	 	while (k--)
+	 	{
+	 		top = minHeap.begin()
+	 		x = top->first; 
+	 		y = top->second; // edge from x to y
+	 		minheap.erase(top);
+	 		edges.erase(top);
+	 		
+	 		if an edge is repeated
+	 		then k++ and then continue
+	 		
+	 		cost = top->cost;
+	 		total += cost;
+	 		
+	 		l = left[x];
+	 		r = right[y];
+	 		
+	 		if(l is in edges and r is in edges)
+	 		{
+		 		update left and right of new l and r
+		 		cost = edges[(l,x)] + edges[(y,r)] - edges[(x,y)];
+		 		minHeap.insert(cost, edge[(l,r)]); // inserting a new virtual edge from l to y 
+		 		edges.erase(l,x);
+		 		edges.erase(y,r);
+	 		}
+	 		
+	 	}
+	 
+	 }
+	 	
+		

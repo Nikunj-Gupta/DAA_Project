@@ -1,0 +1,74 @@
+*** Date : 24th April 2016 ***
+*** @Author : Anup Deshmukh, Amrutha Nanduri, Nikunj Gupta ***
+
+PROBLEM NAME :  
+	 	12.BACKUP
+
+COMPILATION  : 	
+		Move into the folder "IMT2014-013-036-037" and then into "version1".
+			1) Use the command 'make all' to compile.
+			2) Use command 'make test2000' to run test case with n = 2000.
+			   Use command 'make test3000' to run test case with n = 3000.
+			   Use command 'make test5000' to run test case with n = 5000.
+			   Use command 'make test10000' to run test case with n = 10000.
+			   Use command 'make test30000' to run test case with n = 30000.
+			   Use command 'make test50000' to run test case with n = 50000. 
+
+TIME COMPLEXITY : 
+		O(n*k) for each test case, where n is number of nodes and k is number of cables.
+		n = 2000  , k = 878 -->    0m0.448s
+		n = 5000  , k = 2234 -->   0m2.775s
+		n = 10000 , k = 4995 -->   0m0.119s
+		n = 30000 , k = 14324 -->  0m54.968s		  
+		
+
+Sources : 	
+		http://www.cplusplus.com/reference/map/map/map/
+
+Data Structures used :  
+		Associative container - Maps
+
+Notable defects  :  
+		
+		n = 50000 , k = 24000 -->  2m32.708s
+			    
+Individual contribution  :
+		Anup --> Version 1 (algorithm), Version 2(greedy approach), documentation.
+	        Amrutha --> Version 1 (algorithm), Version 2(greedy approach), script for test cases.
+		Nikunj --> Version 1 (algorithm), Version 2(greedy approach), implementing maps, pseudo code.  
+
+Psuedocode :
+
+		algo(array,i,k)
+	
+		/*base cases*/
+
+		if (i,k) in map.key
+			return value of (i,k) in the map
+		if k==0
+			return 0
+		if i==(2k-1) //number of nodes being odd there will be two possibilities
+			x=0,y=0,q=0
+			while q < i 
+				x = x + diff[q] //compute the first possibility 
+				y = y + diff[q] //compute second possibility
+				q = q + 2
+			if x < y return x
+			else returnn y
+		if i==(2k-2) //number of nodes being even there is only one possibility
+			x=0,q=0 //
+			while q < i 
+				x = x + diff[q] //compute the only possibility
+				q = q + 2
+			return x
+
+		/* Recurrence relation */
+
+		temp1 = algo(diff,i-1,k)
+		temp2 = algo(diff,i-2,k-1) + diff(i)
+		if temp1 < temp2 
+			set temp1 as a value to the key (i,k)
+		else 
+			set temp2 as a value to the key (i,k)
+		if temp1 < temp2 return temp1
+		else return temp2
